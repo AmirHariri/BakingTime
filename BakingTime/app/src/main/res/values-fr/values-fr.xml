@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Temps de cuisson</string>
+    <string name="tv_ingredients">Ingrédients</string>
+    <string name="next">Prochain</string>
+    <string name="previous">Précédent</string>
+    <string name="appwidget_text">Fait cuire</string>
+    <string name="add_widget">Ajouter un widget</string>
+
+
+    <string name="no_image_content_dscrp">Pas de vidéo disponible</string>
+    <string name="step_number">Brève description</string>
+    <string name="description_text">Description complète</string>
+    <string name="servings_text">Portions: </string>
+    <string name="step_text">Étape </string>
+    <string name="steps_content_description">Image pour Step</string>
+</resources>

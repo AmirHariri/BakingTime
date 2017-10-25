@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingLeft="@dimen/layout_padding_small"
+    android:paddingTop="@dimen/layout_padding_small"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/ingredient_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_margin_small"
+            android:layout_marginLeft="@dimen/layout_margin_small"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:textSize="12sp"
+            tools:text="@string/ingredient_quantity_placeholder"/>
+
+        <TextView
+            android:id="@+id/ingredient_measure"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginStart="@dimen/text_margin_small"
+            android:layout_marginLeft="@dimen/text_margin_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            tools:text="@string/ingredient_measure_placeholder"/>
+
+    <TextView
+        android:id="@+id/ingredient_name"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="@dimen/text_margin_small"
+        android:gravity="center_vertical"
+        android:textSize="12sp"
+        tools:text="@string/ingredient_text_placeholder"/>
+</LinearLayout>

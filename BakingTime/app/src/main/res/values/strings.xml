@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Baking Time</string>
+    <string name="tv_ingredients">Ingredients</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="appwidget_text">Lets bake</string>
+    <string name="add_widget">Add widget</string>
+    <string name="no_image_content_dscrp">No video available</string>
+    <string name="recepie_name">Recepie</string>
+    <string name="step_number">Short description</string>
+    <string name="description_text">Full description</string>
+    <string name="servings_text">Servings: </string>
+    <string name="step_text">Step </string>
+    <string name="steps_content_description">Image for Step</string>
+    <string name="empty_view_text">Loading..</string>
+    <string name="ingredient_text_placeholder">Ingredient</string>
+    <string name="ingredient_measure_placeholder">Measure</string>
+    <string name="ingredient_quantity_placeholder">Quantity</string>
+    <string name="title_placeholder">RecepieTitle</string>
+
+
+</resources>
+

@@ -1,0 +1,49 @@
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#08C"
+        android:padding="@dimen/widget_margin">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/widget_baking_image"
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:layout_marginTop="@dimen/layout_padding_small"
+                android:layout_marginLeft="@dimen/layout_padding_small"
+                android:layout_marginStart="@dimen/layout_padding_small"
+                android:layout_gravity="start"
+                android:src="@drawable/launcher_baking_icon"/>
+
+
+
+            <TextView
+                android:id="@+id/empty_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:text="@string/empty_view_text"
+                android:textSize="20sp" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <ListView
+            android:id="@+id/widget_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginBottom="@dimen/layout_margin_small"
+            tools:listitem="@layout/recepie_widget_list_item"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
