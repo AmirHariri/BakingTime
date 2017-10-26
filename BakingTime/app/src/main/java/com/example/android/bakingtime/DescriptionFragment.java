@@ -50,11 +50,11 @@ public class DescriptionFragment extends Fragment {
         String currentStepDscrp = steps.get(stepNumber).getDescription();
         View rootViewDescriotion = inflater.inflate(R.layout.fragment_description,container, false);
 
-        textView = rootViewDescriotion.findViewById(R.id.tv_description);
+        textView =(TextView) rootViewDescriotion.findViewById(R.id.tv_description);
         textView.setText(currentStepDscrp);
         textView.setContentDescription(currentStepDscrp);
 
-        previousButton = rootViewDescriotion.findViewById(R.id.btn_previous);
+        previousButton =(Button) rootViewDescriotion.findViewById(R.id.btn_previous);
         previousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +65,7 @@ public class DescriptionFragment extends Fragment {
             }
         });
 
-        nextButton = rootViewDescriotion.findViewById(R.id.btn_next);
+        nextButton =(Button) rootViewDescriotion.findViewById(R.id.btn_next);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

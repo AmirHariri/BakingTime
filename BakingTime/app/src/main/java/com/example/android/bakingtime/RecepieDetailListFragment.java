@@ -50,12 +50,12 @@ public class RecepieDetailListFragment extends Fragment {
 
         ArrayList<Recepie.Ingredient> ingredients = mRecepie.getIngredient();
         IngredientAdapter ingredientAdapter = new IngredientAdapter(this.getActivity() , ingredients);
-        ListView ingredientsListView = rootView.findViewById(R.id.lv_ingredients);
+        ListView ingredientsListView =(ListView) rootView.findViewById(R.id.lv_ingredients);
         ingredientsListView.setAdapter(ingredientAdapter);
 
         ArrayList<Recepie.Steps> steps = mRecepie.getSteps();
         StepAdapter stepAdapter = new StepAdapter(this.getActivity(), steps);
-        ListView stepsListView = rootView.findViewById(R.id.lv_steps);
+        ListView stepsListView =(ListView) rootView.findViewById(R.id.lv_steps);
         stepsListView.setAdapter(stepAdapter);
 
         stepsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
