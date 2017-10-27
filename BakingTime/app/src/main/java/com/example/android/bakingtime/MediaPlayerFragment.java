@@ -155,11 +155,12 @@ public class MediaPlayerFragment extends Fragment implements ExoPlayer.EventList
      * Release the player when the activity is destroyed.
      */
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onStop() {
+        super.onStop();
         releasePlayer();
         mMediaSession.setActive(false);
     }
+
 
     private void initializeMediaSession() {
         // Create a MediaSessionCompat.

@@ -17,6 +17,7 @@
     <string name="ingredient_measure_placeholder">Measure</string>
     <string name="ingredient_quantity_placeholder">Quantity</string>
     <string name="title_placeholder">RecepieTitle</string>
+    <string name="recepie_image_description">recepie image</string>
 
 
 </resources>

@@ -1,17 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:padding="@dimen/layout_margin_small">
+    <ImageView
+        android:id="@+id/iv_recepie"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/recepie_image_description"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
     <TextView
         android:id="@+id/tv_recepie_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_toEndOf="@+id/iv_recepie"
+        android:layout_toRightOf="@id/iv_recepie"
         android:layout_margin="@dimen/text_margin_large"
         android:contentDescription="@string/recepie_name"
         android:textSize="36sp"
         tools:text="Recepie Card"/>
+    <View
+        android:layout_marginTop="@dimen/layout_margin_large"
+        android:background="@color/colorPrimaryDark"
+        android:layout_alignBottom="@+id/iv_recepie"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
 
-</LinearLayout>
+
+</RelativeLayout>

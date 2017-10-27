@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/grid_view_recepies"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:columnWidth="350dp"
-    android:numColumns="auto_fit"
-    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="com.example.android.bakingtime.MainActivity">
 
-</GridView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_recepies"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:numColumns="auto_fit" />
+
+</FrameLayout>
