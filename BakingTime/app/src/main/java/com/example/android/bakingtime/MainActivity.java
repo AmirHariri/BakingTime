@@ -70,39 +70,23 @@ public class MainActivity extends AppCompatActivity implements
 
         loaderManager.initLoader(RECEPIE_LOADER_ID, null, this).forceLoad();
 
-
-
-
-
     }
 
     @Override
     public Loader<List<Recepie>> onCreateLoader(int i, Bundle bundle) {
-
         return new RecepieLoader(this, RECEPIE_LISTING_URL_STRING);
     }
 
     @Override
     public void onLoadFinished(Loader<List<Recepie>> loader, List<Recepie> data) {
-
         mRecepieAdapter.swapListRecepie(data);
         recepies = (ArrayList<Recepie>) data;
-
-/*
-        mRecepieRecyclerView.clear();
-        // If there is a valid list of {@link Recepie}s, then add them to the adapter's
-        // data set. This will trigger the GridView to update.
-        if (recepies != null && !recepies.isEmpty()) {
-            mRecepieAdapter.addAll(recepies);
-        }*/
-
     }
 
     @Override
     public void onLoaderReset(Loader<List<Recepie>> loader) {
         mRecepieAdapter.swapListRecepie(null);
     }
-
 
     public void sendDataToWidget() {
         ArrayList<Recepie.Ingredient> mIngredientArrayList = null;

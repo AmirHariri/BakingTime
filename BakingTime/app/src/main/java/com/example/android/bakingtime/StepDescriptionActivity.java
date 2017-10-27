@@ -35,6 +35,7 @@ public class StepDescriptionActivity extends AppCompatActivity implements Descri
     FrameLayout descriptionContainer;
     View seterator;
     int currentStepNumber = 0;
+    private static final String TAG_RETAINED_FRAGMENT = "RetainedFragment";
 
 
 
@@ -60,12 +61,15 @@ public class StepDescriptionActivity extends AppCompatActivity implements Descri
             fm.beginTransaction().add(R.id.descirption_container, descriptionFragment)
                     .commit();
         }
+
+        mediaPlayerFragment = (MediaPlayerFragment)fm.findFragmentByTag(TAG_RETAINED_FRAGMENT);
         // create the fragment and data the first time
         if (mediaPlayerFragment == null) {
             // add the fragment
             mediaPlayerFragment = new MediaPlayerFragment();
-            fm.beginTransaction().add(R.id.media_container, mediaPlayerFragment)
+            fm.beginTransaction().add(R.id.media_container, mediaPlayerFragment,TAG_RETAINED_FRAGMENT)
                     .commit();
+
         }
         descriptionContainer = (FrameLayout)findViewById(R.id.descirption_container);
         seterator = (View) findViewById(R.id.v_seperator);
@@ -112,6 +116,9 @@ public class StepDescriptionActivity extends AppCompatActivity implements Descri
         if(isFinishing()){
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction().remove(mediaPlayerFragment).commit();
+            if (descriptionFragment!=null){
+                fm.beginTransaction().remove(descriptionFragment).commit();
+            }
 
         }
     }

@@ -20,8 +20,8 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"/>
 
-        <ListView
-            android:id="@+id/lv_ingredients"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_ingredients"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/layout_margin_small" />
@@ -31,8 +31,8 @@
         android:layout_height="5dp"
         android:background="@color/colorPrimaryDark"/>
 
-    <ListView
-            android:id="@+id/lv_steps"
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_steps"
             android:layout_width="match_parent"
             android:layout_height="0dp"
              android:layout_weight="4"

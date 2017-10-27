@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.android.bakingtime.adapter.IngredientAdapter;
+import com.example.android.bakingtime.adapter.RecepieAdapter;
 import com.example.android.bakingtime.adapter.StepAdapter;
 
 import org.w3c.dom.Text;
@@ -33,13 +37,10 @@ public class RecepieDetailListFragment extends Fragment {
     OnStepClickListener mCallback;
     // Mandatory empty constructor
     public RecepieDetailListFragment(){
-
     }
     public interface OnStepClickListener{
         void onStepSelected(int position);
     }
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,21 +51,24 @@ public class RecepieDetailListFragment extends Fragment {
 
         ArrayList<Recepie.Ingredient> ingredients = mRecepie.getIngredient();
         IngredientAdapter ingredientAdapter = new IngredientAdapter(this.getActivity() , ingredients);
-        ListView ingredientsListView =(ListView) rootView.findViewById(R.id.lv_ingredients);
-        ingredientsListView.setAdapter(ingredientAdapter);
+        RecyclerView ingredientsRecyclerView =(RecyclerView) rootView.findViewById(R.id.recycler_view_ingredients);
+        ingredientsRecyclerView.setAdapter(ingredientAdapter);
+        ingredientsRecyclerView.setHasFixedSize(true);
+        ingredientsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        ArrayList<Recepie.Steps> steps = mRecepie.getSteps();
+        final ArrayList<Recepie.Steps> steps = mRecepie.getSteps();
         StepAdapter stepAdapter = new StepAdapter(this.getActivity(), steps);
-        ListView stepsListView =(ListView) rootView.findViewById(R.id.lv_steps);
-        stepsListView.setAdapter(stepAdapter);
+        RecyclerView stepsRecyclerView =(RecyclerView) rootView.findViewById(R.id.recycler_view_steps);
+        stepsRecyclerView.setAdapter(stepAdapter);
+        stepsRecyclerView.setHasFixedSize(true);
+        stepsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        stepsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        stepAdapter.setOnItemClickListener(new StepAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+            public void onItemClick(View view, int position) {
                 mCallback.onStepSelected(position);
             }
         });
-
         for (int i= 0; i<ingredients.size();i++) {
             Log.v(LOG_TAG, "Ingredients are : " + ingredients.get(i).getSingleIngredient());
         }

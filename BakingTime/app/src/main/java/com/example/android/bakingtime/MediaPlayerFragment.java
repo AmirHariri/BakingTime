@@ -72,18 +72,17 @@ public class MediaPlayerFragment extends Fragment implements ExoPlayer.EventList
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // retain this fragment
-        setRetainInstance(true);
+
         if (singlePane) {
             Intent i = getActivity().getIntent();
             steps = (ArrayList<Recepie.Steps>) getActivity().getIntent().getSerializableExtra("RecepieSteps");
             stepNumber = i.getIntExtra("StepNumber", 0);
         }
-
+/*
         if (savedInstanceState != null) {
             mVideoPosition = savedInstanceState.getLong("VideoPosition");
             stepNumber = savedInstanceState.getInt("StepNumber");
-        }
+        }*/
 
             View rootViewMedia = inflater.inflate(R.layout.fragment_media_player, container, false);
 
@@ -100,19 +99,12 @@ public class MediaPlayerFragment extends Fragment implements ExoPlayer.EventList
                 initializeMediaSession();
                 initializePlayer(Uri.parse(videoURL));
             }
+        // retain this fragment
+        setRetainInstance(true);
 
-            return rootViewMedia;
+        return rootViewMedia;
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putLong("VideoPosition", mVideoPosition);
-        savedInstanceState.putInt("StepNumber", stepNumber);
-        if (mediaPlayerFragment != null) {
-            getFragmentManager().putFragment(savedInstanceState, TAG, mediaPlayerFragment);
-        }
-    }
 
     /**
      * Initialize ExoPlayer.
@@ -158,9 +150,15 @@ public class MediaPlayerFragment extends Fragment implements ExoPlayer.EventList
     public void onStop() {
         super.onStop();
         releasePlayer();
-        mMediaSession.setActive(false);
+        if (urlIsAvailble) {
+            mMediaSession.setActive(false);
+        }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 
     private void initializeMediaSession() {
         // Create a MediaSessionCompat.
@@ -256,20 +254,6 @@ public class MediaPlayerFragment extends Fragment implements ExoPlayer.EventList
             dummyPic.setVisibility(View.VISIBLE);
         }
     }
-
-    /*
-    @Override
-    public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-        if ((playbackState == ExoPlayer.STATE_READY) && playWhenReady) {
-            mStateBuilder.setState(PlaybackStateCompat.STATE_PLAYING,
-                    mExoPlayer.getCurrentPosition(), 1f);
-        } else if ((playbackState == ExoPlayer.STATE_READY)) {
-            mStateBuilder.setState(PlaybackStateCompat.STATE_PAUSED,
-                    mExoPlayer.getCurrentPosition(), 1f);
-        }
-        mMediaSession.setPlaybackState(mStateBuilder.build());
-    }
-*/
     /**
      * Inner class to handle the media session callback Where all external clients control the player.
      */
@@ -290,6 +274,8 @@ public class MediaPlayerFragment extends Fragment implements ExoPlayer.EventList
             mExoPlayer.seekToDefaultPosition();
         }
     }
+
+
 
 
 

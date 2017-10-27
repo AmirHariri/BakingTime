@@ -76,7 +76,6 @@ public class RecepieAdapter extends RecyclerView.Adapter<RecepieAdapter.RecepieV
 
 
     public class RecepieViewHolder extends RecyclerView.ViewHolder{
-
         TextView mRecepieNameTextView;
         ImageView mRecepieImageView;
 
