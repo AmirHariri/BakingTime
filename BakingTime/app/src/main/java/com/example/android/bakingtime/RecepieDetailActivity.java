@@ -9,10 +9,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import java.util.ArrayList;
-
-
 
 public class RecepieDetailActivity extends AppCompatActivity implements
         RecepieDetailListFragment.OnStepClickListener

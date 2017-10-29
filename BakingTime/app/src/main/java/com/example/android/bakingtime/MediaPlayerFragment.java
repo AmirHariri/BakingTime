@@ -1,11 +1,8 @@
 package com.example.android.bakingtime;
 
-import android.app.NotificationManager;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.media.session.MediaSessionCompat;
@@ -15,9 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -30,7 +25,6 @@ import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
@@ -38,8 +32,6 @@ import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
-
-
 
 import java.util.ArrayList;
 
@@ -61,11 +53,10 @@ public class MediaPlayerFragment extends Fragment implements ExoPlayer.EventList
     boolean urlIsAvailble= false;
     public boolean singlePane = true;
     long mVideoPosition;
-    MediaPlayerFragment mediaPlayerFragment;
     private PlaybackStateCompat.Builder mStateBuilder;
+    Bundle mSavedInsatanceState;
 
     private static MediaSessionCompat mMediaSession;
-
 
     public MediaPlayerFragment(){}
 
@@ -77,13 +68,9 @@ public class MediaPlayerFragment extends Fragment implements ExoPlayer.EventList
             Intent i = getActivity().getIntent();
             steps = (ArrayList<Recepie.Steps>) getActivity().getIntent().getSerializableExtra("RecepieSteps");
             stepNumber = i.getIntExtra("StepNumber", 0);
+            Log.e(LOG_TAG,"the stepNumber from Intent is :"+ stepNumber+ "and from SaveInstance " +
+                    "State is :");
         }
-/*
-        if (savedInstanceState != null) {
-            mVideoPosition = savedInstanceState.getLong("VideoPosition");
-            stepNumber = savedInstanceState.getInt("StepNumber");
-        }*/
-
             View rootViewMedia = inflater.inflate(R.layout.fragment_media_player, container, false);
 
             mPlayerView = (SimpleExoPlayerView) rootViewMedia.findViewById(R.id.exoplayer_view);
@@ -101,10 +88,16 @@ public class MediaPlayerFragment extends Fragment implements ExoPlayer.EventList
             }
         // retain this fragment
         setRetainInstance(true);
-
         return rootViewMedia;
     }
 
+    @Override
+     public void onSaveInstanceState(Bundle savedInstanceState) {
+            super.onSaveInstanceState(savedInstanceState);
+            savedInstanceState.putLong("VideoPosition", mVideoPosition);
+            savedInstanceState.putInt("StepNumber", stepNumber);
+            mSavedInsatanceState = savedInstanceState;
+    }
 
     /**
      * Initialize ExoPlayer.
@@ -123,13 +116,10 @@ public class MediaPlayerFragment extends Fragment implements ExoPlayer.EventList
 
             // Create an instance of the ExoPlayer.
             BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
-
             TrackSelector trackSelector = new DefaultTrackSelector();
-
             LoadControl loadControl = new DefaultLoadControl();
             mExoPlayer = ExoPlayerFactory.newSimpleInstance(getContext(), trackSelector, loadControl);
             mPlayerView.setPlayer(mExoPlayer);
-
 
             if (mPlayerView != null) {
                 mPlayerView.setPlayer(mExoPlayer);
@@ -142,7 +132,14 @@ public class MediaPlayerFragment extends Fragment implements ExoPlayer.EventList
             mExoPlayer.seekTo(mVideoPosition);
         }
     }
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mExoPlayer != null) {
+            mVideoPosition = mExoPlayer.getCurrentPosition();
+            releasePlayer();
+        }
+    }
     /**
      * Release the player when the activity is destroyed.
      */
@@ -158,6 +155,9 @@ public class MediaPlayerFragment extends Fragment implements ExoPlayer.EventList
     @Override
     public void onResume() {
         super.onResume();
+        if (!videoURL.equals("")) {
+            initializePlayer(Uri.parse(videoURL));
+        }
     }
 
     private void initializeMediaSession() {
@@ -183,11 +183,9 @@ public class MediaPlayerFragment extends Fragment implements ExoPlayer.EventList
         mMediaSession.setPlaybackState(mStateBuilder.build());
         // MySessionCallback has methods that handle callbacks from a media controller.
         mMediaSession.setCallback(new MySessionCallback());
-
         // Start the Media Session since the activity is active.
         mMediaSession.setActive(true);
     }
-
     /**
      * Release ExoPlayer.
      */
@@ -203,22 +201,18 @@ public class MediaPlayerFragment extends Fragment implements ExoPlayer.EventList
 
     @Override
     public void onTimelineChanged(Timeline timeline, Object manifest) {
-
     }
 
     @Override
     public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
-
     }
 
     @Override
     public void onLoadingChanged(boolean isLoading) {
-
     }
 
     @Override
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-
     }
 
     @Override
@@ -241,7 +235,6 @@ public class MediaPlayerFragment extends Fragment implements ExoPlayer.EventList
 
     @Override
     public void onPositionDiscontinuity() {
-
     }
 
     //meke the mPlayerView visible if the urlIsavailable
